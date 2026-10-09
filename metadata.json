@@ -1,0 +1,6 @@
+{
+  "name": "My Hisab",
+  "description": "Your Trusted Business Partner - Mobile Business Accounting & Bookkeeping",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

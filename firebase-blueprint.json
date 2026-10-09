@@ -1,0 +1,200 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User business account information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "fullName": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "mobileNumber": { "type": "string", "pattern": "^[0-9]{10}$" },
+        "email": { "type": "string", "maxLength": 150 },
+        "businessName": { "type": "string", "maxLength": 150 },
+        "address": { "type": "string", "maxLength": 300 },
+        "city": { "type": "string", "maxLength": 100 },
+        "state": { "type": "string", "maxLength": 100 },
+        "pinCode": { "type": "string", "maxLength": 10 },
+        "accountStatus": { "type": "string", "enum": ["active", "suspended"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "fullName", "mobileNumber", "email"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer record for credit/debit tracking",
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "mobile": { "type": "string", "maxLength": 15 },
+        "address": { "type": "string", "maxLength": 300 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "totalReceivable": { "type": "number" },
+        "totalPayable": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["customerId", "name"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Product inventory item",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "name": { "type": "string", "maxLength": 150 },
+        "sku": { "type": "string", "maxLength": 50 },
+        "purchasePrice": { "type": "number" },
+        "salePrice": { "type": "number" },
+        "stockQuantity": { "type": "number" },
+        "lowStockLimit": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 20 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["productId", "name"]
+    },
+    "Sale": {
+      "title": "Sale Transaction",
+      "description": "Recorded customer sale",
+      "type": "object",
+      "properties": {
+        "saleId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["Cash", "UPI", "Other"] },
+        "paidAmount": { "type": "number" },
+        "dueAmount": { "type": "number" },
+        "note": { "type": "string", "maxLength": 300 },
+        "saleDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["saleId", "totalAmount"]
+    },
+    "Purchase": {
+      "title": "Purchase Record",
+      "description": "Supplier purchase record",
+      "type": "object",
+      "properties": {
+        "purchaseId": { "type": "string" },
+        "supplierName": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "paidAmount": { "type": "number" },
+        "dueAmount": { "type": "number" },
+        "note": { "type": "string" },
+        "purchaseDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["purchaseId", "totalAmount"]
+    },
+    "Expense": {
+      "title": "Expense Entry",
+      "description": "Business operational expense",
+      "type": "object",
+      "properties": {
+        "expenseId": { "type": "string" },
+        "category": { "type": "string" },
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "note": { "type": "string" },
+        "expenseDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["expenseId", "title", "amount"]
+    },
+    "Payment": {
+      "title": "Payment Record",
+      "description": "Payment received or made to customer",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "type": { "type": "string", "enum": ["receivable", "payable"] },
+        "amount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["Cash", "UPI", "Other"] },
+        "note": { "type": "string" },
+        "paymentDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["paymentId", "amount", "type"]
+    },
+    "DailyWork": {
+      "title": "Daily Work or Service",
+      "description": "Job card / service entry",
+      "type": "object",
+      "properties": {
+        "workId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "mobile": { "type": "string" },
+        "workTitle": { "type": "string" },
+        "description": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "advance": { "type": "number" },
+        "remainingAmount": { "type": "number" },
+        "workDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "In Progress", "Completed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["workId", "workTitle"]
+    },
+    "Reminder": {
+      "title": "Reminder Entry",
+      "description": "Business task or payment reminder",
+      "type": "object",
+      "properties": {
+        "reminderId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "reminderDate": { "type": "string" },
+        "type": { "type": "string", "enum": ["Payment", "Bill", "Rent", "Stock", "Work", "Other"] },
+        "status": { "type": "string", "enum": ["Pending", "Completed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["reminderId", "title", "reminderDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "/users/{userId}/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Customer records for the user"
+    },
+    "/users/{userId}/products/{productId}": {
+      "schema": "Product",
+      "description": "Product inventory for the user"
+    },
+    "/users/{userId}/sales/{saleId}": {
+      "schema": "Sale",
+      "description": "Sales invoices for the user"
+    },
+    "/users/{userId}/purchases/{purchaseId}": {
+      "schema": "Purchase",
+      "description": "Purchases for the user"
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Business expenses for the user"
+    },
+    "/users/{userId}/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Payment receipts/vouchers for the user"
+    },
+    "/users/{userId}/dailyWork/{workId}": {
+      "schema": "DailyWork",
+      "description": "Daily service or job items for the user"
+    },
+    "/users/{userId}/reminders/{reminderId}": {
+      "schema": "Reminder",
+      "description": "Reminders for the user"
+    }
+  }
+}
